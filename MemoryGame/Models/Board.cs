@@ -71,10 +71,11 @@ namespace MemoryGame.Models
         {
             int dictPointer = 0;
             int counter = -1;
+            Random random = new Random();
 
             for (int i = 0; i < _wordCardArray.Length; i++)
             {
-                _wordCardArray[i] = new WordCard(i, _wordDictionary.ElementAt(dictPointer).Value, "0");
+                _wordCardArray[i] = new WordCard(i, _wordDictionary.ElementAt(dictPointer).Value, random.Next(1,1000).ToString());
 
                 counter++;
 
@@ -93,16 +94,6 @@ namespace MemoryGame.Models
         /// <returns>A WordCard array</returns>
         private WordCard[] AssignRandomCardNumberToWordCards()
         {
-            // local variable for randomised numbers
-            Random random = new Random();
-
-            // set the CardNumber for each WordCard to a random number between 1-100
-            foreach (WordCard wordCard in _wordCardArray)
-            {
-                int thisNumber = random.Next(1, 101);
-                wordCard.CardNumber = thisNumber.ToString();
-            }
-
             // Order the array by converting to a list, and then convert back to an array
             // This can be changed in the future to manually change the array ordering instead
             IEnumerable<WordCard> orderedList = _wordCardArray.ToList().OrderBy(x => x.CardNumber);
