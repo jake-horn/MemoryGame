@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-
-namespace MemoryGame.API
+﻿namespace MemoryGame.API
 {
     public class WordApiCaller
     {
-        private Dictionary<int, string> _wordDictionary;
+        private readonly Dictionary<int, string> _wordDictionary;
         private readonly HttpClient _httpClient;
         private IList<string> _wordList; 
         private readonly int _totalBoardSize; 

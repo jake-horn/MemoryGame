@@ -46,7 +46,7 @@ namespace MemoryGame
             }
 
             // Initialise the new board and complete the set up
-            Board board = new Board(boardSize);
+            Board board = new(boardSize);
             await board.SetUpBoard();
 
             // Sets remaining pairs prior to game starting

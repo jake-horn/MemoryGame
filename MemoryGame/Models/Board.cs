@@ -1,18 +1,13 @@
 ﻿using MemoryGame.API;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MemoryGame.Models
 {
     public class Board
     {
         private WordCard[] _wordCardArray;
-        private int _boardColumnSize { get; }
-        private int _totalSquares { get; }
-        private Dictionary<int, string> _wordDictionary = new Dictionary<int, string>();
+        private readonly int _boardColumnSize;
+        private readonly int _totalSquares;
+        private Dictionary<int, string> _wordDictionary = new();
         private WordApiCaller? _wordApiCaller;
 
         public Board(int boardSize)
@@ -22,6 +17,10 @@ namespace MemoryGame.Models
             _totalSquares = boardSize * boardSize;
         }
 
+        /// <summary>
+        /// Sets up the board for use with the game, primary method that pulls everything together. 
+        /// </summary>
+        /// <returns></returns>
         public async Task SetUpBoard()
         {
             _wordApiCaller = new WordApiCaller(_totalSquares);
@@ -30,6 +29,9 @@ namespace MemoryGame.Models
             AssignRandomCardNumberToWordCards();
         }
 
+        /// <summary>
+        /// Prints the board to the console. 
+        /// </summary>
         public void PrintBoard()
         {
             int counter = 0; 
@@ -48,16 +50,21 @@ namespace MemoryGame.Models
             }
         }
 
-        public WordCard[] GetWordCardArray()
-        {
-            return _wordCardArray;
-        }
-
+        /// <summary>
+        /// Provides a getter for the index of the current word card array. 
+        /// </summary>
+        /// <param name="index">The index required from the array. </param>
+        /// <returns></returns>
         public WordCard GetIndex(int index)
         {
             return _wordCardArray[index];
         }
 
+        /// <summary>
+        /// Confirms whether two words are equal in the word card array. 
+        /// </summary>
+        /// <param name="word1">Index position 1 for comparison. </param>
+        /// <param name="word2">Index position 2 for comparison. </param>
         public bool AreWordsEqual(int word1, int word2)
         {
             return _wordCardArray[word1 -1].Word.Equals(_wordCardArray[word2 -1].Word); 
@@ -71,11 +78,11 @@ namespace MemoryGame.Models
         {
             int dictPointer = 0;
             int counter = -1;
-            Random random = new Random();
+            Random random = new();
 
             for (int i = 0; i < _wordCardArray.Length; i++)
             {
-                _wordCardArray[i] = new WordCard(i, _wordDictionary.ElementAt(dictPointer).Value, random.Next(1,1000).ToString());
+                _wordCardArray[i] = new WordCard(_wordDictionary.ElementAt(dictPointer).Value, random.Next(1,1000).ToString());
 
                 counter++;
 
